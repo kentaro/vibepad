@@ -161,6 +161,7 @@ export default function ChordPad() {
     const [tempoInput, setTempoInput] = useState('120');
     const [recorded, setRecorded] = useState<string[]>([]);
     const [isLooping, setIsLooping] = useState(false);
+    const [isRecording, setIsRecording] = useState(false);
     const loopIndex = useRef(0);
     const loopTimer = useRef<NodeJS.Timeout | null>(null);
     const semitones = getSemitones("C", key);
@@ -405,7 +406,9 @@ export default function ChordPad() {
 
     const handlePlay = (chord: string) => {
         playChord(chord);
-        setRecorded(r => [...r, chord]);
+        if (isRecording) {
+            setRecorded(r => [...r, chord]);
+        }
         setActiveChord(chord);
 
         // パッドアニメーション
@@ -733,6 +736,9 @@ export default function ChordPad() {
                                 disabled={recorded.length === 0}
                                 className="px-3 sm:px-4 py-2 rounded-lg flex items-center gap-2 bg-button-dark disabled:opacity-40 text-white"
                             >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                </svg>
                                 <span className="text-sm sm:text-base">CLEAR</span>
                             </button>
 
@@ -758,10 +764,15 @@ export default function ChordPad() {
                                     PATTERNS
                                 </button>
                                 <button
-                                    onClick={() => handleAutoProgression()}
-                                    className="px-3 sm:px-4 py-2 rounded-lg bg-button-primary text-white text-sm sm:text-base"
+                                    onClick={() => setIsRecording(!isRecording)}
+                                    className={`px-3 sm:px-4 py-2 rounded-lg flex items-center gap-2 ${isRecording ? 'bg-accent' : 'bg-button-dark'} text-white`}
                                 >
-                                    AUTO
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={isRecording ? "red" : "currentColor"}>
+                                        <circle cx="12" cy="12" r="6" />
+                                    </svg>
+                                    <span className="text-sm sm:text-base whitespace-nowrap">
+                                        REC <span className="inline-block w-8 text-center">{isRecording ? 'ON' : 'OFF'}</span>
+                                    </span>
                                 </button>
                             </div>
                         </div>
