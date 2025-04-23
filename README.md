@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vibepad
+
+A browser‑based chord pad for rapid prototyping of chord progressions.  Built with Next.js 15, React 19, Tone.js, and Tailwind CSS 4.  You can audition, record, and share harmonic ideas straight from the browser—no DAW required.
+
+![screenshot](screenshot.png)
+
+## Features
+
+- **Any Key / Five Modes**  – Transpose the factory "C" map to any diatonic key and switch between `major`, `minor`, `dorian`, `mixolydian`, and `lydian` scales.
+- **Responsive Chord Pad**  – All scale‑appropriate chords are auto‑laid out in a responsive grid (≈18 pads).  Click a pad to play the chord.
+- **Poly Synth Engine**     – `Tone.PolySynth → HPF → Limiter → Destination`, 8 voices, triangle waveform.
+- **Tempo Control**         – Type a value or drag vertically (60‑240 BPM).  Loop timing updates in real‑time.
+- **Record & Loop**         – Every pad trigger is captured; hit *PLAY* to loop the sequence at the current BPM.
+- **16 Progression Presets** – Classic pop, jazz, Andalusian, blues, etc.  Choose from a modal or generate one at random.
+- **Share / Save**          – Progressions are encoded into the URL for quick sharing, and can be saved to `localStorage`.
+- **Dark, Mobile‑first UI** – Tailwind CSS 4 theme, scales from phone to desktop.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# clone & install
+git clone https://github.com/yourname/vibepad.git
+cd vibepad
+npm install
+
+# dev server (Turbopack)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 and start jamming 🎛️🎹.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Roadmap
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Add the remaining modes (phrygian, locrian) & non‑diatonic borrowed chords
+- MIDI‑out and WebMIDI learn
+- Export as MIDI file
+- Touch‑friendly XY‑Pad for velocity / filter sweeps
 
-## Learn More
+## Author
 
-To learn more about Next.js, take a look at the following resources:
+Kentaro Kuribayashi
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License
