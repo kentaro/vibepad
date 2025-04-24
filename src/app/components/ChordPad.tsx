@@ -262,8 +262,9 @@ export default function ChordPad() {
     const notesMap = semitones === 0 ? chordNotes : transposeChordNotesMap(chordNotes, semitones, preferFlat);
     const [copyMsg, setCopyMsg] = useState("");
     const synthRef = useRef<Tone.PolySynth | null>(null);
-    // @ts-expect-error nextjs experimental overload
-    const searchParams = useSearchParams({ suspense: true });
+
+    // 通常のuseSearchParamsの使用
+    const searchParams = useSearchParams();
 
     // キーボード操作用の状態
     const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
@@ -539,6 +540,8 @@ export default function ChordPad() {
 
     // 初期化: URLパラメータから状態復元
     useEffect(() => {
+        if (!searchParams) return;
+
         const urlKey = searchParams.get("key");
         const urlScale = searchParams.get("scale");
         const urlSeq = searchParams.get("seq");
@@ -583,7 +586,7 @@ export default function ChordPad() {
                 setAutoPlayInterval(interval);
             }
         }
-    }, []);
+    }, [searchParams]);
 
     // ループ状態が切れたらハイライトをリセット
     useEffect(() => {
